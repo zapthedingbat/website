@@ -1,0 +1,39 @@
+extends ../layouts/default
+
+mixin post(post)
+  .row.post(data-ks-editable=editable(user, { list: 'Post', id: post.id }))
+    h2: a(href='/updates/' + post.slug)= post.title
+    p.lead.text-muted Posted 
+      if post.publishedDate
+        | on #{post._.publishedDate.format('MMMM Do, YYYY')}
+      if post.author
+        | by #{post.author.name.first}
+    if post.image.exists
+      img(src=post._.image).img
+    post.content.body
+
+block intro
+  .container
+    h1= 'Updates'
+
+block content
+  .container
+    .blog
+      each post in data.posts.results
+        +post(post)
+
+    //- pagination
+    .row
+      if data.posts.totalPages > 1
+        ul.pagination
+          if data.posts.previous
+            li: a(href='?page=' + data.posts.previous): span.glyphicon.glyphicon-chevron-left
+          else
+            li.disabled: a(href='?page=' + 1): span.glyphicon.glyphicon-chevron-left
+          each p, i in data.posts.pages
+            li(class=data.posts.currentPage == p ? 'active' : null)
+              a(href='?page=' + (p == '...' ? (i ? data.posts.totalPages : 1) : p ))= p
+          if data.posts.next
+            li: a(href='?page=' + data.posts.next): span.glyphicon.glyphicon-chevron-right
+          else
+            li.disabled: a(href='?page=' + data.posts.totalPages): span.entypo.glyphicon.glyphicon-chevron-right

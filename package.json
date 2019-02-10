@@ -1,0 +1,21 @@
+{
+  "name": "cms-app",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "async": "2.1.4",
+    "dotenv": "4.0.0",
+    "keystone": "^4.0.0",
+    "lodash": "^4.17.11",
+    "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^5.1.1",
+    "prettier": "^1.16.1"
+  },
+  "scripts": {
+    "start": "node -r dotenv/config src/index.js"
+  }
+}

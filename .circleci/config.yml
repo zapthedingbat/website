@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    # Unit testing is considered part of the docker build process
+    working_directory: ~/working_dir
+    steps:
+      - checkout
+      - run:
+          name: Docker build
+          command: docker build -t ${CIRCLE_PROJECT_REPONAME} .
+  deploy:
+    steps:
+      - checkout
+      - run:
+          name: Test
+          command: ./ci-deploy.sh
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
