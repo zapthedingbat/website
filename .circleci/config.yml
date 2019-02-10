@@ -1,14 +1,16 @@
 version: 2
 jobs:
   build:
-    # Unit testing is considered part of the docker build process
-    working_directory: ~/working_dir
+    machine:
+      docker_layer_caching: true
     steps:
       - checkout
       - run:
           name: Docker build
           command: docker build -t ${CIRCLE_PROJECT_REPONAME} .
   deploy:
+    machine:
+      docker_layer_caching: true
     steps:
       - checkout
       - run:
