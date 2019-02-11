@@ -9,4 +9,12 @@ echo "Deploying latest version"
 docker save $CIRCLE_PROJECT_REPONAME | ssh -C $SSH_DEPLOY_USER@$SSH_DEPLOY_HOST docker load
 
 echo "Starting servie"
-ssh -C $SSH_DEPLOY_USER@$SSH_DEPLOY_HOST docker run -d --restart=always --name $CIRCLE_PROJECT_REPONAME -p 80:3000 $CIRCLE_PROJECT_REPONAME
+ssh -C $SSH_DEPLOY_USER@$SSH_DEPLOY_HOST docker run \
+-d --restart=always \
+-e MONGO_URI=$MONGO_URI \
+-e COOKIE_SECRET=$COOKIE_SECRET \
+-e NAME=name \
+-e BRAND=brand \
+--name $CIRCLE_PROJECT_REPONAME \
+-p 80:3000 \
+$CIRCLE_PROJECT_REPONAME
