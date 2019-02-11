@@ -10,7 +10,9 @@ docker save $CIRCLE_PROJECT_REPONAME | ssh -C $SSH_DEPLOY_USER@$SSH_DEPLOY_HOST 
 
 echo "Starting servie"
 ssh -C $SSH_DEPLOY_USER@$SSH_DEPLOY_HOST docker run \
--d --restart=always \
+-d \
+--restart=always \
+--network data \
 -e MONGO_URI=$MONGO_URI \
 -e COOKIE_SECRET=$COOKIE_SECRET \
 -e NAME=name \
