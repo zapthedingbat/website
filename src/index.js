@@ -1,4 +1,6 @@
+var path = require("path");
 var keystone = require("keystone");
+var routes = require("./routes");
 // var lodash = require("lodash");
 
 // Initialise Keystone with your project's configuration.
@@ -8,11 +10,13 @@ var keystone = require("keystone");
 keystone.init({
   name: process.env.NAME,
   brand: process.env.BRAND,
-
-  less: "public",
-  static: "public",
+  mongo: process.env.MONGODB_URI,
+  "module root": path.resolve(__dirname),
+  less: "../public",
+  static: "../public",
   favicon: "../public/favicon.ico",
   views: "templates/views",
+  updates: "../updates",
   "view engine": "pug",
   emails: "templates/emails",
   "auto update": true,
@@ -22,7 +26,7 @@ keystone.init({
 });
 
 // Load your project's Models
-keystone.import("./models");
+keystone.import("models");
 
 // Setup common locals for your templates. The following are required for the
 // bundled templates and layouts. Any runtime locals (that should be set uniquely
@@ -35,7 +39,6 @@ keystone.set("locals", {
 });
 
 // Load your project's Routes
-var routes = require("./routes");
 keystone.set("routes", routes);
 
 // Configure the navigation bar in Keystone's Admin UI

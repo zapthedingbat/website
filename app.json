@@ -1,0 +1,7 @@
+{
+  "stack": "Container",
+  "addons": [{
+    "plan": "mongolab:sandbox",
+    "as": "MONGODB_URI"
+  }]
+}
