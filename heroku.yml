@@ -1,7 +1,7 @@
 setup:
   addons:
     - plan: mongolab:sandbox
-      as: MONGODB_URI
+      as: MONGODB
 build:
   docker:
     web: Dockerfile
